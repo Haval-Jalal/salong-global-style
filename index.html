@@ -766,8 +766,19 @@
             .about-badge, .about-accent { display: none; }
             .about-feats { grid-template-columns: 1fr 1fr; gap: .75rem; }
 
+            /* ─ SECTION HEADERS: centrera allt på mobil ─ */
+            .sec-eye { justify-content: center; }
+            .sec-eye-line { display: none; }
+            h2.sec-title { text-align: center; }
+            .sec-header { flex-direction: column; align-items: center; gap: .75rem; }
+            .hours-text-side .sec-eye,
+            .rev-l .sec-eye,
+            .rev-r .sec-eye { justify-content: center; }
+            .hours-text-side h2.sec-title,
+            .rev-l h2.sec-title,
+            .rev-r h2.sec-title { text-align: center; }
+
             /* ─ SERVICES ─ */
-            .sec-header { flex-direction: column; align-items: flex-start; gap: .75rem; }
             .service-row {
                 grid-template-columns: 28px 1fr auto;
                 gap: .75rem; padding: 1.1rem 0;
@@ -1266,7 +1277,7 @@
             </div>
             <div class="map-box rev-r">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2132.1234567890123!2d11.999999999999999!3d57.699999999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTfCsDQxJzYwLjAiTiAxMcKwNTknNTkuOSJF!5e0!3m2!1ssv!2sse!4v1234567890123!5m2!1ssv!2sse"
+                    src="https://maps.google.com/maps?q=Wieselgrensgatan+7,+417+17+G%C3%B6teborg,+Sverige&output=embed&z=16&hl=sv"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
