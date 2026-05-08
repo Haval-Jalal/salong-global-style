@@ -552,6 +552,48 @@
         .marquee-wrap { overflow: hidden; }
         .marquee-wrap:hover .marquee-track { animation-play-state:paused; }
         @keyframes marq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ── BOOKING MODAL ──────────────────────────── */
+        .book-overlay {
+            position:fixed; inset:0; background:rgba(0,0,0,.75); backdrop-filter:blur(6px);
+            z-index:9999; display:flex; align-items:center; justify-content:center;
+            opacity:0; pointer-events:none; transition:opacity .25s;
+        }
+        .book-overlay.show { opacity:1; pointer-events:all; }
+        .book-modal {
+            background:var(--card); border:1px solid var(--border);
+            border-radius:12px; padding:2.5rem 2rem; max-width:380px; width:90%;
+            text-align:center; transform:translateY(20px); transition:transform .25s;
+        }
+        .book-overlay.show .book-modal { transform:translateY(0); }
+        .book-modal-icon {
+            width:56px; height:56px; border-radius:50%;
+            background:rgba(212,175,55,.12); border:1px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto 1.2rem; font-size:1.4rem; color:var(--gold);
+        }
+        .book-modal h3 {
+            font-family:'Playfair Display',serif; font-size:1.4rem;
+            color:var(--fg); margin-bottom:.4rem;
+        }
+        .book-modal p { color:var(--muted); font-size:.88rem; margin-bottom:1.6rem; }
+        .book-phone {
+            font-family:'Playfair Display',serif; font-size:2rem; font-weight:700;
+            color:var(--gold); display:block; margin-bottom:1.4rem; letter-spacing:.02em;
+        }
+        .btn-call {
+            display:inline-flex; align-items:center; gap:.5rem;
+            background:var(--gold); color:#000; font-weight:700; font-size:.95rem;
+            padding:.85rem 2rem; border-radius:4px; text-decoration:none;
+            width:100%; justify-content:center; margin-bottom:.8rem;
+            transition:opacity .2s;
+        }
+        .btn-call:hover { opacity:.85; }
+        .book-close {
+            background:none; border:none; color:var(--muted); font-size:.85rem;
+            cursor:pointer; padding:.5rem 1rem; letter-spacing:.05em;
+        }
+        .book-close:hover { color:var(--fg); }
         .google-cta {
             display:flex; align-items:center; justify-content:center; gap:1rem;
             padding:2.5rem 1.5rem 0; flex-wrap:wrap;
@@ -889,7 +931,7 @@
 <div id="prog"></div>
 
 <!-- FLOAT BOOK -->
-<a href="#kontakt" class="float-btn" id="floatBtn">
+<a href="#kontakt" class="float-btn" id="floatBtn" data-booking="true">
     <i class="fas fa-calendar-check"></i> Boka Tid
 </a>
 
@@ -916,7 +958,7 @@
             <li><a href="#galleri">Galleri</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
         </ul>
-        <a href="#kontakt" class="nav-cta">Boka Tid</a>
+        <a href="#kontakt" class="nav-cta" data-booking="true">Boka Tid</a>
         <div class="burger" id="burger" onclick="toggleNav()">
             <span></span><span></span><span></span>
         </div>
@@ -957,7 +999,7 @@
                 </span>
             </div>
             <div class="hero-btns">
-                <a href="#kontakt" class="btn-gold">Boka Tid Nu</a>
+                <a href="#kontakt" class="btn-gold" data-booking="true">Boka Tid Nu</a>
                 <a href="#tjanster" class="btn-ghost">
                     <span class="ghost-circle"><i class="fas fa-arrow-right"></i></span>
                     <span>Våra Tjänster</span>
@@ -1237,7 +1279,7 @@
                 <p class="about-body">
                     Drop-in välkommen när vi har plats — boka gärna i förväg för garanterad tid.
                 </p>
-                <a href="#kontakt" class="btn-gold">Boka Din Tid</a>
+                <a href="#kontakt" class="btn-gold" data-booking="true">Boka Din Tid</a>
             </div>
             <div class="rev-r">
                 <table class="hours-table" id="hoursTable">
@@ -1260,7 +1302,7 @@
 <section class="cta-strip">
     <h2>Redo för en ny look?</h2>
     <p>Boka din tid idag och upplev Göteborg's bästa barbershop</p>
-    <a href="#kontakt" class="btn-dark">Boka Nu &nbsp;<i class="fas fa-arrow-right"></i></a>
+    <a href="#kontakt" class="btn-dark" data-booking="true">Boka Nu &nbsp;<i class="fas fa-arrow-right"></i></a>
 </section>
 
 <!-- ══════════════════════════════════════════════
@@ -1355,6 +1397,21 @@
 <!-- ══════════════════════════════════════════════
      SCRIPT
 ══════════════════════════════════════════════ -->
+<!-- BOOKING MODAL -->
+<div class="book-overlay" id="bookOverlay">
+    <div class="book-modal">
+        <div class="book-modal-icon"><i class="fas fa-phone"></i></div>
+        <h3>Boka din tid</h3>
+        <p>Ring oss direkt så bokar vi in dig</p>
+        <!-- BYTA NUMMER: ändra telefonnumret nedan till det riktiga -->
+        <a class="book-phone" href="tel:031123456">031-12 34 56</a>
+        <a href="tel:031123456" class="btn-call">
+            <i class="fas fa-phone"></i> Ring nu
+        </a>
+        <button class="book-close" onclick="closeBooking()">Stäng</button>
+    </div>
+</div>
+
 <script>
     /* LOADER */
     document.body.style.overflow = 'hidden';
@@ -1396,8 +1453,25 @@
         document.getElementById('floatBtn').classList.toggle('on', st > 350);
     });
 
+    /* BOOKING MODAL */
+    function openBooking() {
+        document.getElementById('bookOverlay').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeBooking() {
+        document.getElementById('bookOverlay').classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    document.getElementById('bookOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeBooking();
+    });
+    document.querySelectorAll('[data-booking]').forEach(btn => {
+        btn.addEventListener('click', e => { e.preventDefault(); openBooking(); });
+    });
+
     /* SMOOTH SCROLL */
     document.querySelectorAll('a[href^="#"]').forEach(a => {
+        if (a.dataset.booking) return;
         a.addEventListener('click', e => {
             const tgt = document.querySelector(a.getAttribute('href'));
             if (tgt) {
