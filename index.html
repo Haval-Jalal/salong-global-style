@@ -314,6 +314,29 @@
 
         @keyframes slideR { from{opacity:0;transform:translateX(32px)} to{opacity:1;transform:none} }
         @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+        /* ── MOBILE-ONLY HERO META ─────────────────── */
+        .hero-mob-meta {
+            display: none;
+            align-items: center; gap: .6rem; flex-wrap: wrap;
+            justify-content: center; margin-bottom: 2rem;
+        }
+        .hero-mob-pill {
+            display: inline-flex; align-items: center; gap: .45rem;
+            padding: .4rem 1rem; border-radius: 50px;
+            font-size: .78rem; white-space: nowrap;
+        }
+        .hero-mob-pill.gold {
+            background: rgba(212,175,55,.12);
+            border: 1px solid rgba(212,175,55,.35);
+            color: var(--gold);
+        }
+        .hero-mob-pill.dark {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            color: var(--fg);
+        }
+        .mob-dot { width: 7px; height: 7px; border-radius: 50%; background: #4caf50; animation: blink 2s ease infinite; }
         .eyebrow {
             display: flex; align-items: center; gap: 1rem; margin-bottom: 1.4rem;
             opacity: 0; animation: slideL .8s ease 1.3s forwards;
@@ -641,7 +664,7 @@
         .d3 { transition-delay:.3s; } .d4 { transition-delay:.4s; }
         .shown { opacity:1 !important; transform:none !important; }
 
-        /* ── RESPONSIVE ───────────────────────────── */
+        /* ── TABLET (769–1024px) ──────────────────── */
         @media(max-width:1024px){
             .stats-grid    { grid-template-columns:repeat(2,1fr); }
             .about-grid    { grid-template-columns:1fr; gap:3rem; }
@@ -651,84 +674,159 @@
             .about-badge   { display:none; }
             .about-accent  { display:none; }
         }
+
+        /* ── MOBILE (≤768px) ──────────────────────── */
         @media(max-width:768px){
-            :root { --sp: 4rem; }
-            /* Cursor handled by hover media query — no override needed */
+            :root { --sp: 3.5rem; }
+
+            /* ─ NAV ─ */
+            nav {
+                background: rgba(8,8,8,.97) !important;
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border) !important;
+                padding: 1rem 0 !important;
+            }
+            .nav-in {
+                padding: 0 1.25rem;
+                justify-content: center;
+                position: relative;
+            }
+            .logo { position: static; }
+            .logo-top { font-size: 1.5rem; letter-spacing: 3px; }
+            .logo-bot { text-align: center; }
             .nav-links, .nav-cta { display: none; }
-            .burger { display: flex; }
-            /* Hero */
-            .hero { min-height: 100svh; padding: 5rem 0 2rem; }
-            .hero-in { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 1.5rem; }
-            .hero-visual { height: 300px; margin: 0 1.5rem; overflow: visible; }
-            .hero-rate { left: 0; bottom: 1.2rem; padding: .85rem 1.1rem; min-width: 110px; }
-            .rate-num { font-size: 1.4rem; }
-            .hero-status-badge { right: 0; top: 1.2rem; }
-            .hero-frame { top: 12px; right: -12px; bottom: -12px; left: 12px; }
-            .hcorner { width: 18px; height: 18px; }
-            .hero-sc-dec { font-size: 3.5rem; }
-            .hero-vline { display: none; }
-            .hero h1 { font-size: clamp(2.2rem, 9vw, 3.5rem); }
-            .hero-sub { font-size: .92rem; max-width: 100%; }
-            .hero-btns { gap: .75rem; }
+            .burger {
+                display: flex;
+                position: absolute;
+                right: 1.25rem; top: 50%;
+                transform: translateY(-50%);
+                margin: 0;
+            }
+
+            /* ─ HERO: fullbleed on mobile ─ */
+            .hero {
+                min-height: 100svh;
+                min-height: 100vh;
+                align-items: center;
+            }
+            .hero-bg { opacity: .3; }
+            .hero-grad {
+                background: linear-gradient(
+                    to bottom,
+                    rgba(8,8,8,.55) 0%,
+                    rgba(8,8,8,.35) 45%,
+                    rgba(8,8,8,.65) 100%
+                );
+            }
+            .hero-in {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 7rem 1.5rem 3rem;
+                gap: 0;
+            }
+            .hero-text {
+                display: flex; flex-direction: column; align-items: center;
+                width: 100%; max-width: 380px;
+            }
+            .hero-visual { display: none; }
             .hero-foot { display: none; }
-            /* Stats */
-            .stats-grid { grid-template-columns: repeat(2,1fr); gap: .75rem; }
-            .stat { padding: 1rem .5rem; }
+            .eyebrow { justify-content: center; margin-bottom: 1.2rem; }
+            .hero h1 {
+                font-size: clamp(2.4rem, 11vw, 3.6rem);
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+            .hero-sub {
+                font-size: .95rem; max-width: 100%;
+                text-align: center; margin-bottom: 1.6rem;
+            }
+            .hero-mob-meta { display: flex; }
+            .hero-btns { justify-content: center; gap: .75rem; flex-wrap: wrap; }
+
+            /* ─ STATS ─ */
+            .stats { padding: 2rem 1.25rem; }
+            .stats-grid { grid-template-columns: repeat(2,1fr); gap: 0; }
+            .stat { padding: 1.2rem .5rem; }
             .stat-n { font-size: 2rem; }
             .stat:not(:last-child)::after { display: none; }
-            /* About */
+
+            /* ─ ABOUT ─ */
             .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .about-img { height: 260px; }
+            .about-img { height: 240px; }
             .about-badge, .about-accent { display: none; }
-            .about-feats { grid-template-columns: 1fr; gap: .8rem; }
-            /* Gallery */
+            .about-feats { grid-template-columns: 1fr 1fr; gap: .75rem; }
+
+            /* ─ SERVICES ─ */
+            .sec-header { flex-direction: column; align-items: flex-start; gap: .75rem; }
+            .service-row {
+                grid-template-columns: 28px 1fr auto;
+                gap: .75rem; padding: 1.1rem 0;
+            }
+            .svc-arrow { display: none; }
+            .svc-num { font-size: .85rem; }
+            .svc-info h3 { font-size: 1.05rem; }
+            .svc-info p { font-size: .8rem; }
+            .svc-price { font-size: 1rem; }
+
+            /* ─ GALLERY ─ */
             .gallery-grid {
                 grid-template-columns: 1fr 1fr;
-                grid-template-rows: repeat(3, 150px);
-                gap: .6rem;
+                grid-template-rows: 180px 140px 140px;
+                gap: .5rem;
             }
             .gitem:nth-child(1) { grid-column:1/3; grid-row:1/2; }
             .gitem:nth-child(2) { grid-column:1/2; grid-row:2/3; }
             .gitem:nth-child(3) { grid-column:2/3; grid-row:2/3; }
             .gitem:nth-child(4) { grid-column:1/2; grid-row:3/4; }
             .gitem:nth-child(5) { grid-column:2/3; grid-row:3/4; }
-            /* Services */
-            .service-row { grid-template-columns: 32px 1fr auto; gap: .8rem; padding: 1.2rem .25rem; }
-            .svc-arrow { display: none; }
-            .svc-price { font-size: 1.1rem; white-space: nowrap; }
-            .svc-info h3 { font-size: 1.1rem; }
-            .svc-info p { font-size: .82rem; }
-            .sec-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            /* Hours */
-            .hours-grid { grid-template-columns: 1fr; gap: 2rem; }
-            /* Testimonials */
+
+            /* ─ TESTIMONIALS ─ */
+            .marquee-head { padding: 0 1.25rem; margin-bottom: 2.5rem; }
             .tcard { width: 270px; padding: 1.3rem; }
-            /* Contact */
-            .contact-grid { grid-template-columns: 1fr; }
-            .map-box { min-height: 260px; }
-            .map-box iframe { min-height: 260px; }
-            /* Footer */
-            .foot-main { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem 2rem; }
-            .foot-bot { flex-direction: column; gap: .5rem; text-align: center; padding: 1.2rem 1.5rem; }
-            /* Float & CTA */
-            .float-btn { bottom: 1rem; right: 1rem; padding: .7rem 1.1rem; font-size: .78rem; }
+            .t-text { font-size: .88rem; }
+
+            /* ─ HOURS ─ */
+            .hours-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hours-table td { padding: .85rem .25rem; font-size: .88rem; }
+
+            /* ─ CTA ─ */
             .cta-strip { padding: 3.5rem 1.5rem; }
+            .cta-strip h2 { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+
+            /* ─ CONTACT ─ */
+            .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .map-box { min-height: 240px; }
+            .map-box iframe { min-height: 240px; }
+
+            /* ─ FOOTER ─ */
+            .foot-main { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.25rem 2rem; }
+            .foot-bot { flex-direction: column; gap: .4rem; text-align: center; padding: 1.2rem 1.25rem; }
+            .foot-brand p { max-width: 100%; }
+
+            /* ─ FLOAT BTN ─ */
+            .float-btn { bottom: 1rem; right: 1rem; padding: .7rem 1.1rem; font-size: .78rem; }
         }
+
+        /* ── SMALL PHONES (≤480px) ────────────────── */
         @media(max-width:480px){
             :root { --sp: 2.5rem; }
             .nav-in { padding: 0 1rem; }
-            .hero h1 { font-size: clamp(1.9rem, 8.5vw, 2.8rem); }
-            .hero-btns { flex-direction: column; align-items: flex-start; }
-            .hero-visual { height: 260px; margin: 0 1rem; }
-            .hero-rate { padding: .7rem .9rem; }
-            .rate-num { font-size: 1.25rem; }
+            .burger { right: 1rem !important; }
+            .logo-top { font-size: 1.35rem; }
+            .hero h1 { font-size: clamp(2rem, 10vw, 3rem); }
+            .hero-btns { flex-direction: column; align-items: center; }
+            .btn-gold, .btn-ghost { width: 100%; justify-content: center; text-align: center; }
             .about, .services, .gallery, .hours, .contact { padding: var(--sp) 1rem; }
-            .stats { padding: 1.8rem 1rem; }
-            .stat-n { font-size: 1.8rem; }
-            .marquee-head { padding: 0 1rem; }
+            .stats { padding: 1.5rem 1rem; }
+            .stat-n { font-size: 1.7rem; }
+            .about-feats { grid-template-columns: 1fr; }
             .marquee-sec { padding: var(--sp) 0; }
+            .marquee-head { padding: 0 1rem; }
             .tcard { width: 240px; padding: 1.1rem; }
             .cta-strip { padding: 3rem 1rem; }
+            .gallery-grid { grid-template-rows: 160px 130px 130px; }
         }
 
         /* ── SCROLLBAR ────────────────────────────── */
@@ -814,6 +912,14 @@
             <p class="hero-sub">
                 Professionell herrfrisering och grooming i Göteborg — precision och stil, varje gång.
             </p>
+            <!-- Visas bara på mobil -->
+            <div class="hero-mob-meta" id="heroMobMeta">
+                <span class="hero-mob-pill gold">★★★★★ &nbsp;4.9 · 200+ rec.</span>
+                <span class="hero-mob-pill dark" id="heroMobStatus">
+                    <span class="mob-dot" id="heroMobDot"></span>
+                    <span id="heroMobTxt">Nu öppet</span>
+                </span>
+            </div>
             <div class="hero-btns">
                 <a href="#kontakt" class="btn-gold">Boka Tid Nu</a>
                 <a href="#tjanster" class="btn-ghost">
@@ -1312,6 +1418,13 @@
         if (heroBadge) { heroBadge.style.borderColor = closed.border; }
         if (heroDot)   heroDot.style.background = closed.color;
         if (heroTxt)   heroTxt.textContent = closed.txt;
+        // Mobile hero pill
+        const mobStatus = document.getElementById('heroMobStatus');
+        const mobDot    = document.getElementById('heroMobDot');
+        const mobTxt    = document.getElementById('heroMobTxt');
+        if (mobStatus) { mobStatus.style.borderColor = 'rgba(244,67,54,.4)'; mobStatus.style.color = '#F44336'; }
+        if (mobDot)    mobDot.style.background = '#F44336';
+        if (mobTxt)    mobTxt.textContent = 'Nu stängt';
     }
 </script>
 </body>
