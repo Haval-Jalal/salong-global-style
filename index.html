@@ -702,15 +702,15 @@
         .foot-brand-name { font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); display:block; }
         .foot-brand-sub { font-size:.6rem; letter-spacing:4px; text-transform:uppercase; color:var(--muted); display:block; margin:.3rem 0 1.4rem; }
         .foot-brand p { color:var(--muted); font-size:.9rem; line-height:1.8; max-width:270px; }
-        .foot-socials { display:flex; gap:.65rem; margin-top:1.8rem; }
+        .foot-socials { display:flex; gap:1rem; margin-top:1.8rem; }
         .soc {
-            width:40px; height:40px; border-radius:50%;
+            width:52px; height:52px; border-radius:50%;
             border:1px solid var(--border);
             display:flex; align-items:center; justify-content:center;
-            color:var(--muted); text-decoration:none; font-size:.9rem;
+            color:var(--fg); text-decoration:none; font-size:1.25rem;
             transition:all .3s;
         }
-        .soc:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+        .soc:hover { border-color:var(--gold); color:var(--gold); background:rgba(212,175,55,.07); transform:translateY(-3px); }
         .foot-col h4 { font-size:.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:1.4rem; }
         .foot-col ul { list-style:none; display:flex; flex-direction:column; gap:.7rem; }
         .foot-col ul a { color:var(--muted); text-decoration:none; font-size:.9rem; transition:color .3s; }
@@ -1368,9 +1368,10 @@
             <span class="foot-brand-sub">Barberare · Göteborg</span>
             <p>Premium herrfrisering och grooming i hjärtat av Göteborg. Vi levererar precision, stil och karaktär — varje gång du besöker oss.</p>
             <div class="foot-socials">
-                <a href="#" class="soc"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="soc"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="soc"><i class="fab fa-tiktok"></i></a>
+                <!-- LÄNK: byt ut # mot din Instagram-länk -->
+                <a href="#" class="soc" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <!-- LÄNK: byt ut # mot din TikTok-länk -->
+                <a href="#" class="soc" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
         <div class="foot-col">
